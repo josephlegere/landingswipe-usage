@@ -20,6 +20,8 @@ const Slider = ({ index, children: current, prev, next, setIndex }) => {
 
     const zIndex = useSharedValue(0);
     const bottom = useVector();
+    const isBelow = useSharedValue(true);
+
     const onGestureEvent = useAnimatedGestureHandler({
         onStart: ({ x, y }) => {
             console.log(x);
@@ -31,9 +33,22 @@ const Slider = ({ index, children: current, prev, next, setIndex }) => {
             bottom.y.value = y;
         },
         onEnd: ({ velocityX, velocityY, y }) => {
-            const snapPoints = [HEIGHT - MARGIN_WIDTH];
+            let snapPoints;
+            
+            if (isBelow.value) snapPoints = [HEIGHT - MARGIN_WIDTH];
+            else snapPoints = [MARGIN_WIDTH];
+            
             const dest = snapPoint(y, velocityY, snapPoints);
-            bottom.y.value = withSpring(HEIGHT - dest, { velocity: velocityY });
+
+                bottom.y.value = withSpring(
+                    HEIGHT - dest,
+                    { velocity: velocityY },
+                    () => {
+                        console.log(bottom);
+
+                        if (isBelow.value) isBelow.value = false;
+                        else isBelow.value = true;
+                    });
         },
     });
 
