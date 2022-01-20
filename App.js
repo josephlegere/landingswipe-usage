@@ -51,22 +51,20 @@ const slides = [
 ];
 
 const App: () => Node = () => {
-	const [index, setIndex] = useState(0);
+	const [index, setIndex] = useState(2);
 	const prev = slides[index - 1];
 	const next = slides[index + 1];
 
 	return (
-		// <SafeAreaView style={{ flex: 1, position: 'relative' }}>
-			<Slider
-				key={index}
-				index={index}
-				setIndex={setIndex}
-				prev={prev && <Slide slide={prev} />}
-				next={next && <Slide slide={next} />}
-			>
-				<Slide slide={slides[index]}></Slide>
-			</Slider>
-		// </SafeAreaView>
+		<Slider
+			key={index}
+			index={index}
+			setIndex={setIndex}
+			prev={prev && <Slide slide={prev} />}
+			next={next && <Slide slide={next} />}
+		>
+			<Slide slide={slides[index]}></Slide>
+		</Slider>
 	);
 };
 

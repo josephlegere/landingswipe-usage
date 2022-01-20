@@ -8,15 +8,6 @@ import Svg, { RadialGradient, Defs, Rect, Stop } from "react-native-svg";
 const { width, height } = Dimensions.get("screen");
 const SIZE = width - 75;
 
-// export interface SlideProps {
-//     slide: {
-//         color: string;
-//         title: string;
-//         description: string;
-//         picture: ReturnType<typeof require>;
-//     };
-// }
-
 const Slide = ({ slide: { picture, color, title, description }}) => {
     const lighterColor = Color(color).lighten(0.8).toString();
     return (
